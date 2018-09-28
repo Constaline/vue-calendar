@@ -730,8 +730,10 @@ export default {
                             end.push(this.zeroPad(v))
                         })
                     }else{
-                        begin=this.rangeBegin
-                        end=this.rangeEnd
+                        begin = this.rangeBegin.concat([])
+                        begin[1]++
+                        end = this.rangeEnd.concat([])
+                        end[1]++
                     }
                     // console.log("选中日期",begin,end)
                     this.$emit('select',begin,end)
