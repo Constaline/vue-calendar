@@ -142,11 +142,11 @@
 }
 .calendar td.selected span.red{
     background-color: #ea6151;
-    color: #fff;
+    color: #fff !important;
 }
 .calendar td.selected span.red:hover{
     background-color: #ea6151;
-    color: #fff;
+    color: #fff !important;
 }
 .calendar thead td {
   text-transform: uppercase;
