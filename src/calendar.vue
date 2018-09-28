@@ -94,6 +94,9 @@
     pointer-events:none !important;
     cursor: default !important;
 }
+.calendar td.disabled span{
+    color: #ccc !important;
+}
 .calendar td.disabled div{
     color: #ccc;
 }
