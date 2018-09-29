@@ -100,6 +100,10 @@
 .calendar td.disabled div{
     color: #ccc;
 }
+/* 标记今天日期*/
+.calendar td.isToday span {
+    color: #409eff !important;
+}
 .calendar td span{
     display:block;
     max-width:40px;
@@ -253,7 +257,7 @@
         </thead>
         <tbody>
         <tr v-for="(day,k1) in days" style="{'animation-delay',(k1*30)+'ms'}">
-            <td v-for="(child,k2) in day" :class="{'selected':child.selected,'disabled':child.disabled}" @click="select(k1,k2,$event)">
+            <td v-for="(child,k2) in day" :class="{'selected':child.selected,'disabled':child.disabled,'isToday':child.isToday}" @click="select(k1,k2,$event)">
                 <span :class="{'red':k2==0||k2==6||((child.isLunarFestival||child.isGregorianFestival) && lunar)}">{{child.day}}</span>
                 <div class="text" v-if="child.eventName!=undefined">{{child.eventName}}</div>
                 <div class="text" :class="{'isLunarFestival':child.isLunarFestival,'isGregorianFestival':child.isGregorianFestival}" v-if="lunar">{{child.lunar}}</div>
@@ -601,6 +605,20 @@ export default {
                 }
             }
             this.days = temp
+            
+            // 标记今天日期
+            let now = new Date();
+            let today = now.getDate();
+            if(this.year == now.getFullYear() && this.month == now.getMonth()){
+                this.days.forEach(v => {
+                    let day=v.find(vv => {
+                        return vv.day==today && !vv.disabled
+                    })
+                    if(day!=undefined ){
+                        day.isToday=true  
+                    }
+                })
+            }
         },
         computedPrevYear(){
             let value=this.year
